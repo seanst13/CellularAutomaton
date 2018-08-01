@@ -9,6 +9,7 @@ using namespace std;
 
 // Method Declaration
 void menu();
+void settingsMenu();
 void setRule(int);
 int convertToDecimal();
 int calculateValues(int,int,int);
@@ -82,10 +83,10 @@ int main(){
 					break;
 				}
 				
-			default:
-				{
-					cout << choice << " is an invalid option. Please choose a number between 1 and 4." << endl;
-					break;
+			default: {
+				cout << endl;
+				cout << "ERROR: Invalid Option. Please enter a value between 1 and 5!" << endl;
+				cout << endl; 
 				}
 			}// - End of Switch Statement
  
@@ -97,10 +98,10 @@ return 0;
 
 // ---- Menu Method ----
 void menu() {
-
-	cout << "---------------------------------------------------------------" << endl;
+	cout << endl;
+	cout << "===============================================================" << endl;
 	cout << "-------------------------MAIN MENU-----------------------------" << endl;
-	cout << "---------------------------------------------------------------" << endl;	
+	cout << "===============================================================" << endl;	
 	cout << "Please choose from the following options" << endl; 
 	cout << "---------------------------------------------------------------" << endl;
 	cout << " 1.\tView Cellular Automaton" << endl;
@@ -114,9 +115,10 @@ return;
 } // ---- End of Menu Method ---
 
 void settingsMenu(){
-	cout << "---------------------------------------------------------------" << endl;
+	cout << endl; 
+	cout << "===============================================================" << endl;
 	cout << "------------------------- SETTINGS ----------------------------" << endl;
-	cout << "---------------------------------------------------------------" << endl;	
+	cout << "===============================================================" << endl;	
 	cout << "Please choose from the following options" << endl; 
 	cout << "---------------------------------------------------------------" << endl;
 	cout << " 1.\tView Current Settings" << endl;
@@ -127,7 +129,35 @@ void settingsMenu(){
 	cout << " 5.\tReturn to Main Menu" << endl;
 	cout << "---------------------------------------------------------------" << endl;
 	cout << endl; 	
+
+	displaySettingsMenu();
 }
+
+void displaySettingsMenu(){
+	int choice;
+	switch (choice){
+
+		case 1: {
+			cout << "===============================================================" << endl;
+			cout << "--------------------- CURRENT SETTINGS ------------------------" << endl;
+			cout << "===============================================================" << endl;	
+			cout << "\tRULE:\t" << convertToDecimal() << endl;
+			cout << "\tWDITH:\t" << convertToDecimal() << endl;
+			cout << "\tLINES:\t" << convertToDecimal() << endl;
+		cout << "===============================================================" << endl;
+		}
+
+
+		default: {
+			cout << endl;
+			cout << "ERROR: Invalid Option. Please enter a value between 1 and 5!" << endl;
+			cout << endl; 
+		}
+	}
+
+}
+
+
 
 void setRule(int numtoconvert){
     int binarynumber[8];
