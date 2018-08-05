@@ -12,20 +12,21 @@ void menu();
 void settingsMenu();
 void setRule(int);
 int convertToDecimal();
+void displaySettingsMenu(); 
 int calculateValues(int,int,int);
 int determineChildValues(int[], int, int);
 void generateValues(int,int);
 void resetToDefault();
 
 
-int rule[8] = { 0, 0, 0, 1, 1, 1, 1, 0 }; // -Array to hold the Rules. By default it is set to Rule 30. 
+int rule[8] = {0, 1, 0, 1, 1, 0, 1, 0}; // -Array to hold the Rules. By default it is set to Rule 90. 
 
 // ----Main Method----
 int main(){
 
-// -- Varaibles for the width and the number of lines. By default they are set to 16 and 32. 
-	int numoflines = 16;
-	int width = 32;
+// -- Varaibles for the width and the number of lines. By default they are set to 32. 
+	int numoflines = 24;
+	int width = 48;
 	
 // Variables that relate to the menu
 	int choice;
@@ -198,6 +199,7 @@ void generateValues(int width, int generations){ //This code is based off the Na
 
 	for (int i = 0; i < width; i++){
 		parentgeneration[i] = 0;
+		childgeneration[i] = 0;
 	}
 	parentgeneration[width/2] = 1; 
 
@@ -205,11 +207,15 @@ void generateValues(int width, int generations){ //This code is based off the Na
 		for (int j = 0; j < width; j++){
 			if (parentgeneration[j] == 1){
 				cout << "#" ;
-			} else if (parentgeneration[j] == 0){
-				cout << " 2";
-			}	
-			childgeneration[j] = determineChildValues(parentgeneration, j, width); 
-			parentgeneration[j] = childgeneration[j]; 
+			} else {
+				cout << " ";
+			}
+
+			childgeneration[j] = determineChildValues(parentgeneration, j, width);
+		}
+		//Loop to apply child generation values
+		for (int s = 0; s < width; s++ ){
+			parentgeneration[s] = childgeneration[s];
 		} 			
 	cout << endl;
 	}
@@ -218,24 +224,27 @@ void generateValues(int width, int generations){ //This code is based off the Na
 
 int determineChildValues(int parents[], int position, int width){
 
-	int right = 0; 
-	int left = 0; 
-	int middle = 0; 
-
-
-	left = parents[position-1];
-	middle = parents[position];
-	right = parents[position+1];
+	int right; 
+	int left; 
+	int middle; 
 
 	if (position == 0){
 		left = parents[width-1];
+		middle = parents[position];
+		right = parents[position+1];
 	} else if (position == width-1) {
+		left = parents[position-1];
+		middle = parents[position];
 		right = parents[0];
+	} else {
+		left = parents[position-1];
+		middle = parents[position];
+		right = parents[position+1];
 	}
 
 	// cout << "Left: " << left << " Middle: " << middle << " Right: " << right << endl; 
-
- 	return calculateValues(left,middle,right);
+	int newvalue = calculateValues(left,middle,right);
+ 	return newvalue; 
 }
 
 // ---- calculateValues Method ----
