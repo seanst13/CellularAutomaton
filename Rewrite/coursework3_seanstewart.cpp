@@ -134,17 +134,17 @@ void settingsMenu(){
 	cout << "---------------------------------------------------------------" << endl;
 	cout << " 1.\tView Current Settings" << endl;
 	cout << " 2.\tChange Cellular Automaton Rule" << endl;
-	cout << " 2.\tChange Number of Lines Generated" << endl;
-	cout << " 3.\tChange Width of Cellular Automaton" << endl;
-	cout << " 4.\tReset to Default Settings" << endl;
-	cout << " 5.\tReturn to Main Menu" << endl;
+	cout << " 3.\tChange Number of Lines Generated" << endl;
+	cout << " 4.\tChange Width of Cellular Automaton" << endl;
+	cout << " 5.\tReset to Default Settings" << endl;
+	cout << " 6.\tReturn to Main Menu" << endl;
 	cout << "---------------------------------------------------------------" << endl;
 	cout << endl; 	
 }
 
 void displaySettingsMenu(){
 	int choice = 0 ;
-	while (choice !=5){
+	while (choice !=6){
 		settingsMenu();
 		cout << "OPTION: "; 
 		cin >> choice;
@@ -152,13 +152,13 @@ void displaySettingsMenu(){
 		switch (choice){
 
 			case 1: {
-				cout << "===============================================================" << endl;
-				cout << "--------------------- CURRENT SETTINGS ------------------------" << endl;
-				cout << "===============================================================" << endl;	
+				cout << "=====================================================" << endl;
+				cout << "---------------- CURRENT SETTINGS -------------------" << endl;
+				cout << "=====================================================" << endl;	
 				cout << "\tRULE:\t" << convertToDecimal() << endl;
 				cout << "\tWIDTH:\t" << width << endl;
 				cout << "\tLINES:\t" << numoflines << endl;
-				cout << "===============================================================" << endl;
+				cout << "=====================================================" << endl;
 				break;
 			}
 			
@@ -186,21 +186,54 @@ void displaySettingsMenu(){
 			}
 
 			case 3: {
-				
-				break;
-			}
+				char input;
+				cout << "The Number of Lines displayed is:  " << numoflines << endl;  
+				cout << "Do you wish to change this? (Y/N)" << endl; 
+				cin >> input; 
+				if (determineOptionOutcome(input)){
+					int newlines;
+					cout << "Please enter a new the new number of lines" << endl;
+					cout << "NUMBER OF LINES: ";
+					cin >> newlines; 
+					numoflines = newlines; 
+					}
+				break; 	
+				}
 
 			case 4: {
+				char input;
+				cout << "The Current width of the cellular automaton is: " << width << endl;  
+				cout << "Do you wish to change this? (Y/N)" << endl; 
+				cin >> input; 
+				if (determineOptionOutcome(input)){
+					int newwidth;
+					cout << "Please enter a new rule number that you wish to change" << endl;
+					cout << "RULE: ";
+					cin >> newwidth; 
+					width = newwidth; 
+				}
 				break;
 			}
 
 			case 5: {
+				char input;
+				cout << "Do you wish to revert back to default settings? (Y/N)" << endl; 
+				cin >> input; 
+				if (determineOptionOutcome(input)){
+					resetToDefault();
+					width = 32;
+					numoflines = 16; 
+				}
 				break; 
+			}
+
+			case 6: {
+				break;
 			}
 
 			default: {
 				cout << endl;
-				cout << "ERROR: Invalid Option. Please enter a value between 1 and 5!" << endl;
+				cout << "ERROR: Invalid Option. Please enter a value between 1 and 6!" << endl;
 				cout << endl; 
 				break;
 			}
