@@ -17,6 +17,7 @@ int calculateValues(int,int,int);
 int determineChildValues(int[], int, int);
 void generateValues(int,int);
 void resetToDefault();
+bool determineOptionOutcome(char); 
 
 
 int rule[8] = {0, 1, 0, 1, 1, 0, 1, 0}; // -Array to hold the Rules. By default it is set to Rule 90. 
@@ -60,6 +61,7 @@ int main(){
 				break;
 				}
 			case 3: {
+					displaySettingsMenu(); 
 					break;
 				}
 
@@ -130,35 +132,75 @@ void settingsMenu(){
 	cout << " 5.\tReturn to Main Menu" << endl;
 	cout << "---------------------------------------------------------------" << endl;
 	cout << endl; 	
-
-	displaySettingsMenu();
 }
 
 void displaySettingsMenu(){
-	int choice;
-	switch (choice){
+	int choice = 0 ;
+	while (choice !=5){
+		settingsMenu();
+		cout << "OPTION: "; 
+		cin >> choice;
+		cout << endl;  
+		switch (choice){
 
-		case 1: {
-			cout << "===============================================================" << endl;
-			cout << "--------------------- CURRENT SETTINGS ------------------------" << endl;
-			cout << "===============================================================" << endl;	
-			cout << "\tRULE:\t" << convertToDecimal() << endl;
-			cout << "\tWDITH:\t" << convertToDecimal() << endl;
-			cout << "\tLINES:\t" << convertToDecimal() << endl;
-		cout << "===============================================================" << endl;
-		}
+			case 1: {
+				cout << "===============================================================" << endl;
+				cout << "--------------------- CURRENT SETTINGS ------------------------" << endl;
+				cout << "===============================================================" << endl;	
+				cout << "\tRULE:\t" << convertToDecimal() << endl;
+				cout << "\tWIDTH:\t" << convertToDecimal() << endl;
+				cout << "\tLINES:\t" << convertToDecimal() << endl;
+				cout << "===============================================================" << endl;
+				break;
+			}
+			
+			case 2: {
+				char input;
+				cout << "The Current Rule is: RULE " << convertToDecimal() << endl;  
+				cout << "Do you wish to change this? (Y/N)" << endl; 
+				cin >> input; 
+				if (determineOptionOutcome(input)){
+					int newrule; 
+					cout << "Please enter a new rule number that you wish to change" << endl;
+					cout << "RULE: ";
+					cin >> newrule; 
+					setRule(newrule); 
+				}
+				break;
+			}
 
+			case 3: {
+				
+				break;
+			}
 
-		default: {
-			cout << endl;
-			cout << "ERROR: Invalid Option. Please enter a value between 1 and 5!" << endl;
-			cout << endl; 
+			case 4: {
+				break;
+			}
+
+			case 5: {
+				break; 
+			}
+
+			default: {
+				cout << endl;
+				cout << "ERROR: Invalid Option. Please enter a value between 1 and 5!" << endl;
+				cout << endl; 
+				break;
+			}
 		}
 	}
-
 }
 
+bool determineOptionOutcome(char input){
+	input = toupper(input);
 
+	if (input == 'Y'){
+		return true; 
+	} else {
+		return false; 
+	}
+}
 
 void setRule(int numtoconvert){
     int binarynumber[8];
