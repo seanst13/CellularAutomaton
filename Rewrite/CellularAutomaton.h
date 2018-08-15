@@ -6,16 +6,15 @@
 #include<string>
 using namespace std;
 
-Class CellularAutomaton{
+class CellularAutomaton{
 
-    private:
         int rule[8];
         int width;
         int lines;
 
     public: 
     //Get & Set Methods
-        CellularAutomaton(string rule, int width, int newline);
+        CellularAutomaton(int rule, int width, int newline);
         void setRule(int newrule);
         int getRule();
         void setWidth(int newwidth);

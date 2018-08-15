@@ -1,38 +1,38 @@
-#include CellularAutomaton.h
+#include "CellularAutomaton.h"
 #include <string> 
 using namespace std; 
 
 CellularAutomaton::CellularAutomaton(int rules, int width, int lines ){
-    setRules(rules);
+    setRule(rules);
     setWidth(width);
-    setLines(lines);
+    setLine(lines);
 }
 
-CellularAutomaton::setRules(int newrule){
+ void CellularAutomaton::setRule(int newrule){
   int binarynumber[8];
-        for (int i = 0; i < 8; i++) { 
+        for (int i = 7; i >= 0; i++) { 
             binarynumber[i] =  (newrule % 2) ; //Sets the remainder of each loop to the present value in the array
             newrule = newrule / 2 ; // Divides the number by two each time, As in 8 bit binary, each number is divisable by two
-			this.rule[i] = binarynumber[i]; 
+			rule[i] = binarynumber[i]; 
         }
 }
 
-CellularAutomaton::setLines(int newline){
-    this.lines = newline
+ void CellularAutomaton::setLine(int newline){
+    lines = newline
 }
 
-CellularAutomaton::setWdith(int newwidth){
-    this.width = newwidth;
+void CellularAutomaton::setWidth(int newwidth){
+    width = newwidth;
 }
 
-CellularAutomaton::getRule(){
-    return this.rule; 
+ CellularAutomaton::getRule(){
+    return rule; 
 }
 
-CellularAutomaton::getLine(){
-    return this.lines;
+ int CellularAutomaton::getLine(){
+    return lines;
 }
 
-CellularAutomaton::getWidth(){
-    return this.width;
+ int CellularAutomaton::getWidth(){
+    return width;
 }

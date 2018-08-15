@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string> 
 #include <fstream> 
+#include "CellularAutomaton.cpp"
 using namespace std;
 
 
@@ -27,6 +28,8 @@ int width = 48;
 
 // ----Main Method----
 int main(){
+
+	CellularAutomaton CA = CellularAutomaton(30,32,16); 
 
 	menuLoop();
 
