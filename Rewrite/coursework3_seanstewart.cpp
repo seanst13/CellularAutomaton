@@ -9,6 +9,7 @@ using namespace std;
 
 // Method Declaration
 void menu();
+void menuLoop(); 
 void settingsMenu();
 void setRule(int);
 int convertToDecimal();
@@ -25,7 +26,14 @@ int rule[8] = {0, 1, 0, 1, 1, 0, 1, 0}; // -Array to hold the Rules. By default 
 // ----Main Method----
 int main(){
 
-// -- Varaibles for the width and the number of lines. By default they are set to 32. 
+	menuLoop();
+
+return 0;
+
+} // ---End of Main Method ---
+
+void menuLoop(){
+	// -- Varaibles for the width and the number of lines. By default they are set to 32. 
 	int numoflines = 24;
 	int width = 48;
 	
@@ -95,9 +103,8 @@ int main(){
  
 	}while (choice != 4);
 
-return 0;
+}
 
-} // ---End of Main Method ---
 
 // ---- Menu Method ----
 void menu() {
