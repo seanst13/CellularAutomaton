@@ -9,6 +9,7 @@ using namespace std;
 
 // Method Declaration
 void menu();
+void menuLoop(); 
 void settingsMenu();
 void setRule(int);
 int convertToDecimal();
@@ -17,16 +18,25 @@ int calculateValues(int,int,int);
 int determineChildValues(int[], int, int);
 void generateValues(int,int);
 void resetToDefault();
+bool determineOptionOutcome(char); 
 
 
 int rule[8] = {0, 1, 0, 1, 1, 0, 1, 0}; // -Array to hold the Rules. By default it is set to Rule 90. 
+int numoflines = 24;
+int width = 48;
 
 // ----Main Method----
 int main(){
 
-// -- Varaibles for the width and the number of lines. By default they are set to 32. 
-	int numoflines = 24;
-	int width = 48;
+	menuLoop();
+
+return 0;
+
+} // ---End of Main Method ---
+
+void menuLoop(){
+	// -- Varaibles for the width and the number of lines. By default they are set to 32. 
+
 	
 // Variables that relate to the menu
 	int choice;
@@ -60,6 +70,7 @@ int main(){
 				break;
 				}
 			case 3: {
+					displaySettingsMenu(); 
 					break;
 				}
 
@@ -93,9 +104,8 @@ int main(){
  
 	}while (choice != 4);
 
-return 0;
+}
 
-} // ---End of Main Method ---
 
 // ---- Menu Method ----
 void menu() {
@@ -124,45 +134,126 @@ void settingsMenu(){
 	cout << "---------------------------------------------------------------" << endl;
 	cout << " 1.\tView Current Settings" << endl;
 	cout << " 2.\tChange Cellular Automaton Rule" << endl;
-	cout << " 2.\tChange Number of Lines Generated" << endl;
-	cout << " 3.\tChange Width of Cellular Automaton" << endl;
-	cout << " 4.\tReset to Default Settings" << endl;
-	cout << " 5.\tReturn to Main Menu" << endl;
+	cout << " 3.\tChange Number of Lines Generated" << endl;
+	cout << " 4.\tChange Width of Cellular Automaton" << endl;
+	cout << " 5.\tReset to Default Settings" << endl;
+	cout << " 6.\tReturn to Main Menu" << endl;
 	cout << "---------------------------------------------------------------" << endl;
 	cout << endl; 	
-
-	displaySettingsMenu();
 }
 
 void displaySettingsMenu(){
-	int choice;
-	switch (choice){
+	int choice = 0 ;
+	while (choice !=6){
+		settingsMenu();
+		cout << "OPTION: "; 
+		cin >> choice;
+		cout << endl;  
+		switch (choice){
 
-		case 1: {
-			cout << "===============================================================" << endl;
-			cout << "--------------------- CURRENT SETTINGS ------------------------" << endl;
-			cout << "===============================================================" << endl;	
-			cout << "\tRULE:\t" << convertToDecimal() << endl;
-			cout << "\tWDITH:\t" << convertToDecimal() << endl;
-			cout << "\tLINES:\t" << convertToDecimal() << endl;
-		cout << "===============================================================" << endl;
-		}
+			case 1: {
+				cout << "=====================================================" << endl;
+				cout << "---------------- CURRENT SETTINGS -------------------" << endl;
+				cout << "=====================================================" << endl;	
+				cout << "\tRULE:\t" << convertToDecimal() << endl;
+				cout << "\tWIDTH:\t" << width << endl;
+				cout << "\tLINES:\t" << numoflines << endl;
+				cout << "=====================================================" << endl;
+				break;
+			}
+			
+			case 2: {
+				char input;
+				cout << "The Current Rule is: RULE " << convertToDecimal() << endl;  
+				cout << "Do you wish to change this? (Y/N)" << endl; 
+				cin >> input; 
+				if (determineOptionOutcome(input)){
+					int newrule;
+					bool incompleteloop = true; 
+					while (incompleteloop){
+						cout << "Please enter a new rule number that you wish to change" << endl;
+						cout << "RULE: ";
+						cin >> newrule; 
+						if (newrule < 0 | newrule > 255) {
+							cout << "Number is invalid. Please enter a valid number" << endl; 
+						} else {
+							incompleteloop = false; 
+						}
+					}
+					setRule(newrule); 
+				}
+				break;
+			}
 
+			case 3: {
+				char input;
+				cout << "The Number of Lines displayed is:  " << numoflines << endl;  
+				cout << "Do you wish to change this? (Y/N)" << endl; 
+				cin >> input; 
+				if (determineOptionOutcome(input)){
+					int newlines;
+					cout << "Please enter a new the new number of lines" << endl;
+					cout << "NUMBER OF LINES: ";
+					cin >> newlines; 
+					numoflines = newlines; 
+					}
+				break; 	
+				}
 
-		default: {
-			cout << endl;
-			cout << "ERROR: Invalid Option. Please enter a value between 1 and 5!" << endl;
-			cout << endl; 
+			case 4: {
+				char input;
+				cout << "The Current width of the cellular automaton is: " << width << endl;  
+				cout << "Do you wish to change this? (Y/N)" << endl; 
+				cin >> input; 
+				if (determineOptionOutcome(input)){
+					int newwidth;
+					cout << "Please enter a new rule number that you wish to change" << endl;
+					cout << "RULE: ";
+					cin >> newwidth; 
+					width = newwidth; 
+				}
+				break;
+			}
+
+			case 5: {
+				char input;
+				cout << "Do you wish to revert back to default settings? (Y/N)" << endl; 
+				cin >> input; 
+				if (determineOptionOutcome(input)){
+					resetToDefault();
+					width = 32;
+					numoflines = 16; 
+				}
+				break; 
+			}
+
+			case 6: {
+				break;
+			}
+
+			default: {
+				cout << endl;
+				cout << "ERROR: Invalid Option. Please enter a value between 1 and 6!" << endl;
+				cout << endl; 
+				break;
+			}
 		}
 	}
-
 }
 
+bool determineOptionOutcome(char input){
+	input = toupper(input);
 
+	if (input == 'Y'){
+		return true; 
+	} else {
+		return false; 
+	}
+}
 
 void setRule(int numtoconvert){
     int binarynumber[8];
-        for (int i = 0; i < 8; i++) { 
+        for (int i  = 7; i >= 0; i--) { 
             binarynumber[i] =  (numtoconvert % 2) ; //Sets the remainder of each loop to the present value in the array
             numtoconvert = numtoconvert / 2 ; // Divides the number by two each time, As in 8 bit binary, each number is divisable by two
 			rule[i] = binarynumber[i]; 
