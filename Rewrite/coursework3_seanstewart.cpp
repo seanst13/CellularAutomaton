@@ -22,6 +22,8 @@ bool determineOptionOutcome(char);
 
 
 int rule[8] = {0, 1, 0, 1, 1, 0, 1, 0}; // -Array to hold the Rules. By default it is set to Rule 90. 
+int numoflines = 24;
+int width = 48;
 
 // ----Main Method----
 int main(){
@@ -34,8 +36,7 @@ return 0;
 
 void menuLoop(){
 	// -- Varaibles for the width and the number of lines. By default they are set to 32. 
-	int numoflines = 24;
-	int width = 48;
+
 	
 // Variables that relate to the menu
 	int choice;
@@ -155,8 +156,8 @@ void displaySettingsMenu(){
 				cout << "--------------------- CURRENT SETTINGS ------------------------" << endl;
 				cout << "===============================================================" << endl;	
 				cout << "\tRULE:\t" << convertToDecimal() << endl;
-				cout << "\tWIDTH:\t" << convertToDecimal() << endl;
-				cout << "\tLINES:\t" << convertToDecimal() << endl;
+				cout << "\tWIDTH:\t" << width << endl;
+				cout << "\tLINES:\t" << numoflines << endl;
 				cout << "===============================================================" << endl;
 				break;
 			}
