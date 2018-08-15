@@ -160,10 +160,18 @@ void displaySettingsMenu(){
 				cout << "Do you wish to change this? (Y/N)" << endl; 
 				cin >> input; 
 				if (determineOptionOutcome(input)){
-					int newrule; 
-					cout << "Please enter a new rule number that you wish to change" << endl;
-					cout << "RULE: ";
-					cin >> newrule; 
+					int newrule;
+					bool incompleteloop = true; 
+					while (incompleteloop){
+						cout << "Please enter a new rule number that you wish to change" << endl;
+						cout << "RULE: ";
+						cin >> newrule; 
+						if (newrule < 0 | newrule > 255) {
+							cout << "Number is invalid. Please enter a valid number" << endl; 
+						} else {
+							incompleteloop = false; 
+						}
+					}
 					setRule(newrule); 
 				}
 				break;
@@ -204,7 +212,7 @@ bool determineOptionOutcome(char input){
 
 void setRule(int numtoconvert){
     int binarynumber[8];
-        for (int i = 0; i < 8; i++) { 
+        for (int i  = 7; i >= 0; i--) { 
             binarynumber[i] =  (numtoconvert % 2) ; //Sets the remainder of each loop to the present value in the array
             numtoconvert = numtoconvert / 2 ; // Divides the number by two each time, As in 8 bit binary, each number is divisable by two
 			rule[i] = binarynumber[i]; 
