@@ -17,6 +17,7 @@ class CellularAutomaton{
         CellularAutomaton(int rule, int width, int newline);
         void setRule(int newrule);
         int getRule(int position);
+        int displayRuleDecimal(); 
         void setWidth(int newwidth);
         int getWidth();
         void setLine(int newline);

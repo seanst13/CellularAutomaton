@@ -57,9 +57,8 @@ void menuLoop(){
 		
 			case 1:{
 				cout << endl; 
-				cout << "Rule: " << convertToDecimal() << "\t Number of Generations: " << cell.getLine() << "\t Width of Automaton: " << cell.getWidth() << endl;
+				cout << "Rule: " << cell.displayRuleDecimal() << "\t Number of Generations: " << cell.getLine() << "\t Width of Automaton: " << cell.getWidth() << endl;
 				cout << endl; 
-				//generateValues(width, numoflines);
 				cell.generateValues(); 
 				break;
 			}
@@ -67,10 +66,10 @@ void menuLoop(){
 			case 2:{
 				cell.setRule(rand() % 255);
 				cout << endl; 
-				cout << "Rule: " << convertToDecimal() << "\t Number of Generations: " << numoflines << "\t Width of Automaton: " << width << endl;
+				cout << "Rule: " << cell.displayRuleDecimal() << "\t Number of Generations: " << cell.getLine() << "\t Width of Automaton: " << cell.getWidth() << endl;
 				cout << endl; 
 				cell.generateValues();
-				resetToDefault();
+				cell.setRule(30); 
 				break;
 				}
 			case 3: {
@@ -159,16 +158,16 @@ void displaySettingsMenu(){
 				cout << "=====================================================" << endl;
 				cout << "---------------- CURRENT SETTINGS -------------------" << endl;
 				cout << "=====================================================" << endl;	
-				cout << "\tRULE:\t" << convertToDecimal() << endl;
-				cout << "\tWIDTH:\t" << width << endl;
-				cout << "\tLINES:\t" << numoflines << endl;
+				cout << "\tRULE:\t" << cell.displayRuleDecimal() << endl;
+				cout << "\tWIDTH:\t" << cell.getWidth() << endl;
+				cout << "\tLINES:\t" << cell.getLine() << endl;
 				cout << "=====================================================" << endl;
 				break;
 			}
 			
 			case 2: {
 				char input;
-				cout << "The Current Rule is: RULE " << convertToDecimal() << endl;  
+				cout << "The Current Rule is: RULE " << cell.displayRuleDecimal() << endl;  
 				cout << "Do you wish to change this? (Y/N)" << endl; 
 				cin >> input; 
 				if (determineOptionOutcome(input)){
@@ -184,14 +183,14 @@ void displaySettingsMenu(){
 							incompleteloop = false; 
 						}
 					}
-					setRule(newrule); 
+					cell.setRule(newrule); 
 				}
 				break;
 			}
 
 			case 3: {
 				char input;
-				cout << "The Number of Lines displayed is:  " << numoflines << endl;  
+				cout << "The Number of Lines displayed is:  " << cell.getLine() << endl;  
 				cout << "Do you wish to change this? (Y/N)" << endl; 
 				cin >> input; 
 				if (determineOptionOutcome(input)){
@@ -199,22 +198,22 @@ void displaySettingsMenu(){
 					cout << "Please enter a new the new number of lines" << endl;
 					cout << "NUMBER OF LINES: ";
 					cin >> newlines; 
-					numoflines = newlines; 
+					cell.setLine(newlines); 
 					}
 				break; 	
 				}
 
 			case 4: {
 				char input;
-				cout << "The Current width of the cellular automaton is: " << width << endl;  
+				cout << "The Current width of the cellular automaton is: " << cell.getWidth() << endl;  
 				cout << "Do you wish to change this? (Y/N)" << endl; 
 				cin >> input; 
 				if (determineOptionOutcome(input)){
 					int newwidth;
-					cout << "Please enter a new rule number that you wish to change" << endl;
+					cout << "Please enter a new width for the Cellular Automaton" << endl;
 					cout << "RULE: ";
 					cin >> newwidth; 
-					width = newwidth; 
+					cell.setWidth(newwidth); 
 				}
 				break;
 			}
@@ -224,9 +223,9 @@ void displaySettingsMenu(){
 				cout << "Do you wish to revert back to default settings? (Y/N)" << endl; 
 				cin >> input; 
 				if (determineOptionOutcome(input)){
-					resetToDefault();
-					width = 32;
-					numoflines = 16; 
+					cell.setRule(30);
+					cell.setWidth(32);
+					cell.setLine(16); 
 				}
 				break; 
 			}
@@ -253,31 +252,6 @@ bool determineOptionOutcome(char input){
 	} else {
 		return false; 
 	}
-}
-
-void setRule(int numtoconvert){
-    int binarynumber[8];
-        for (int i  = 7; i >= 0; i--) { 
-            binarynumber[i] =  (numtoconvert % 2) ; //Sets the remainder of each loop to the present value in the array
-            numtoconvert = numtoconvert / 2 ; // Divides the number by two each time, As in 8 bit binary, each number is divisable by two
-			rule[i] = binarynumber[i]; 
-        }
-}
-
-int convertToDecimal(){
-// Loops through the array and converts the value from binary into decimal.
-	int binaryvalue = 128;
-	int total = 0;
-
-	for (int i = 0; i < 8; i++){
-		if (rule[i] == 1){
-			total += binaryvalue;
-		} 
-		binaryvalue = binaryvalue/2; 
-	}
-
-	return total; 
-
 }
 
 void resetToDefault(){

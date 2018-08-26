@@ -28,6 +28,19 @@ void CellularAutomaton::setWidth(int newwidth){
  int CellularAutomaton::getRule(int position){
     return rule[position]; 
 }
+int CellularAutomaton::displayRuleDecimal(){
+// Loops through the array and converts the value from binary into decimal.
+	int binaryvalue = 128;
+	int total = 0;
+
+	for (int i = 0; i < 8; i++){
+		if (rule[i] == 1){
+			total += binaryvalue;
+		} 
+		binaryvalue = binaryvalue/2; 
+	}
+	return total; 
+}
 
  int CellularAutomaton::getLine(){
     return lines;
