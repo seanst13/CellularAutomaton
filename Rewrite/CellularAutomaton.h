@@ -6,21 +6,25 @@
 #include<string>
 using namespace std;
 
-Class CellularAutomaton{
+class CellularAutomaton{
 
-    private:
         int rule[8];
         int width;
         int lines;
 
     public: 
     //Get & Set Methods
-        CellularAutomaton(string rule, int width, int newline);
+        CellularAutomaton(int rule, int width, int newline);
         void setRule(int newrule);
-        int getRule();
+        int getRule(int position);
+        int displayRuleDecimal(); 
         void setWidth(int newwidth);
         int getWidth();
         void setLine(int newline);
         int getLine(); 
+    //Other Class Methods
+        int determineChildValues(int parent[], int position);
+        void generateValues();
+        int calculateValues(int left, int right, int middle); 
 };
 #endif
