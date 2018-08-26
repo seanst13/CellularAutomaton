@@ -1,6 +1,7 @@
 #include "CellularAutomaton.h"
-#include <string> 
-using namespace std; 
+#include <iostream> 
+#include <string>
+using namespace std;
 
 CellularAutomaton::CellularAutomaton(int rules, int width, int lines ){
     setRule(rules);
@@ -91,6 +92,7 @@ int CellularAutomaton::determineChildValues(int parent[], int position){
 }
 
 int CellularAutomaton::calculateValues (int left, int middle, int right){
+
     if  	(left == 1 && middle == 1 && right == 1) { return getRule(0); }
     else if (left == 1 && middle == 1 && right == 0) { return getRule(1); }
     else if (left == 1 && middle == 0 && right == 1) { return getRule(2); }

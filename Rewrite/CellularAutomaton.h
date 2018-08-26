@@ -3,8 +3,6 @@
 
 #ifndef CELLULARAUTOMATON_H
 #define CELLULARAUTOMATON_H
-#include<string>
-using namespace std;
 
 class CellularAutomaton{
 
@@ -25,6 +23,6 @@ class CellularAutomaton{
     //Other Class Methods
         int determineChildValues(int parent[], int position);
         void generateValues();
-        int calculateValues(int left, int right, int middle); 
+        int calculateValues(int left, int middle, int right); 
 };
 #endif

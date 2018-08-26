@@ -1,10 +1,11 @@
 // Cellular Autoamton Rewrite. 
 // Written by Sean Stewart
 
+#include "CellularAutomaton.cpp"
 #include <iostream>
 #include <string> 
 #include <fstream> 
-#include "CellularAutomaton.cpp"
+
 using namespace std;
 
 
@@ -72,23 +73,6 @@ void menuLoop(){
 					displaySettingsMenu(); 
 					break;
 				}
-
-//Statement to output to a file - Note this does not function. 
-
-/*			case 6: { 
-					ofstream outputfile;
-  					outputfile.open ("cellular_automaton_output.txt");
-					outputfile << "--------------------------------------------------------------- \n" ;
-  					outputfile << "Rule: " << getRule() << "\t Number of Generations: " << numoflines << "\t Width of Automaton: " << width;
-					
-					outputfile << "\n" << generateValues(width, numoflines) << "\n";
-  					outputfile.close();
-
-					cout << endl;
-					cout << "The output has been stored to the file." << endl;
-					cout << endl;
-					break;
-				} */
 			case 4: {
 					cout << "Thank you for using the program." << endl;
 					break;
