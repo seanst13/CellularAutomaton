@@ -12,19 +12,14 @@ using namespace std;
 void menu();
 void menuLoop(); 
 void settingsMenu();
-void setRule(int);
-int convertToDecimal();
 void displaySettingsMenu(); 
-int calculateValues(int,int,int);
-int determineChildValues(int[], int, int);
-void generateValues(int,int);
 void resetToDefault();
+void changeRule(); 
+void changeLines();
+void changeWidth(); 
 bool determineOptionOutcome(char); 
 
 
-int rule[8] = {0, 1, 0, 1, 1, 0, 1, 0}; // -Array to hold the Rules. By default it is set to Rule 90. 
-int numoflines = 24;
-int width = 48;
 CellularAutomaton cell(30,32,16); 
 
 
@@ -64,12 +59,13 @@ void menuLoop(){
 			}
 				
 			case 2:{
+				int ruletemp = cell.displayRuleDecimal();
 				cell.setRule(rand() % 255);
 				cout << endl; 
 				cout << "Rule: " << cell.displayRuleDecimal() << "\t Number of Generations: " << cell.getLine() << "\t Width of Automaton: " << cell.getWidth() << endl;
 				cout << endl; 
 				cell.generateValues();
-				cell.setRule(30); 
+				cell.setRule(ruletemp); 
 				break;
 				}
 			case 3: {
@@ -153,7 +149,6 @@ void displaySettingsMenu(){
 		cin >> choice;
 		cout << endl;  
 		switch (choice){
-
 			case 1: {
 				cout << "=====================================================" << endl;
 				cout << "---------------- CURRENT SETTINGS -------------------" << endl;
@@ -164,76 +159,25 @@ void displaySettingsMenu(){
 				cout << "=====================================================" << endl;
 				break;
 			}
-			
 			case 2: {
-				char input;
-				cout << "The Current Rule is: RULE " << cell.displayRuleDecimal() << endl;  
-				cout << "Do you wish to change this? (Y/N)" << endl; 
-				cin >> input; 
-				if (determineOptionOutcome(input)){
-					int newrule;
-					bool incompleteloop = true; 
-					while (incompleteloop){
-						cout << "Please enter a new rule number that you wish to change" << endl;
-						cout << "RULE: ";
-						cin >> newrule; 
-						if (newrule < 0 | newrule > 255) {
-							cout << "Number is invalid. Please enter a valid number" << endl; 
-						} else {
-							incompleteloop = false; 
-						}
-					}
-					cell.setRule(newrule); 
-				}
+				changeRule();
 				break;
 			}
-
 			case 3: {
-				char input;
-				cout << "The Number of Lines displayed is:  " << cell.getLine() << endl;  
-				cout << "Do you wish to change this? (Y/N)" << endl; 
-				cin >> input; 
-				if (determineOptionOutcome(input)){
-					int newlines;
-					cout << "Please enter a new the new number of lines" << endl;
-					cout << "NUMBER OF LINES: ";
-					cin >> newlines; 
-					cell.setLine(newlines); 
-					}
+				changeLines(); 
 				break; 	
 				}
-
 			case 4: {
-				char input;
-				cout << "The Current width of the cellular automaton is: " << cell.getWidth() << endl;  
-				cout << "Do you wish to change this? (Y/N)" << endl; 
-				cin >> input; 
-				if (determineOptionOutcome(input)){
-					int newwidth;
-					cout << "Please enter a new width for the Cellular Automaton" << endl;
-					cout << "RULE: ";
-					cin >> newwidth; 
-					cell.setWidth(newwidth); 
-				}
+				changeWidth(); 
 				break;
 			}
-
 			case 5: {
-				char input;
-				cout << "Do you wish to revert back to default settings? (Y/N)" << endl; 
-				cin >> input; 
-				if (determineOptionOutcome(input)){
-					cell.setRule(30);
-					cell.setWidth(32);
-					cell.setLine(16); 
-				}
+				resetToDefault(); 
 				break; 
 			}
-
 			case 6: {
 				break;
 			}
-
 			default: {
 				cout << endl;
 				cout << "ERROR: Invalid Option. Please enter a value between 1 and 6!" << endl;
@@ -243,6 +187,57 @@ void displaySettingsMenu(){
 		}
 	}
 }
+
+void changeRule(){
+	char input;
+	cout << "The Current Rule is: RULE " << cell.displayRuleDecimal() << endl;  
+	cout << "Do you wish to change this? (Y/N)" << endl; 
+	cin >> input; 
+	if (determineOptionOutcome(input)){
+		int newrule;
+		bool incompleteloop = true; 
+		while (incompleteloop){
+			cout << "Please enter a new rule number that you wish to change. Number must be bewtween 0-255." << endl;
+			cout << "RULE: ";
+			cin >> newrule; 
+			if (newrule < 0 || newrule > 255) {
+				cout << "Number is invalid. Please enter a valid number" << endl; 
+			} else {
+				incompleteloop = false; 
+			}
+		}
+		cell.setRule(newrule); 
+	}
+}
+
+void changeLines(){
+	char input;
+	cout << "The Number of Lines displayed is:  " << cell.getLine() << endl;  
+	cout << "Do you wish to change this? (Y/N)" << endl; 
+	cin >> input; 
+	if (determineOptionOutcome(input)){
+		int newlines;
+		cout << "Please enter a new the new number of lines" << endl;
+		cout << "NUMBER OF LINES: ";
+		cin >> newlines; 
+		cell.setLine(newlines); 
+	}
+}
+
+void changeWidth(){
+	char input;
+	cout << "The Current width of the cellular automaton is: " << cell.getWidth() << endl;  
+	cout << "Do you wish to change this? (Y/N)" << endl; 
+	cin >> input; 
+	if (determineOptionOutcome(input)){
+		int newwidth;
+		cout << "Please enter a new width for the Cellular Automaton" << endl;
+		cout << "RULE: ";
+		cin >> newwidth; 
+		cell.setWidth(newwidth); 
+	}
+}
+
 
 bool determineOptionOutcome(char input){
 	input = toupper(input);
@@ -255,8 +250,12 @@ bool determineOptionOutcome(char input){
 }
 
 void resetToDefault(){
-	int newrule[8] = { 0, 0, 0, 1, 1, 1, 1, 0 };
-	for(int i = 0; i < 8; i++){
-		rule[i] = newrule[i];
+	char input;
+	cout << "Do you wish to revert back to default settings? (Y/N)" << endl; 
+	cin >> input; 
+	if (determineOptionOutcome(input)){
+		cell.setRule(30);
+		cell.setWidth(32);
+		cell.setLine(16); 
 	}
 }
